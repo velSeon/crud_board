@@ -1,10 +1,13 @@
 package com.curd.crud_board.controller;
 
+import com.curd.crud_board.config.SecurityConfig;
+import com.curd.crud_board.config.SecurityConfig;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -14,6 +17,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @DisplayName("view 컨트롤러 - 게시글")
+@Import(SecurityConfig.class)
 @WebMvcTest(ArticleController.class)
 class ArticleControllerTest {
 
@@ -34,7 +38,7 @@ class ArticleControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
                 .andExpect(MockMvcResultMatchers.view().name("articles/index"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("articles"));
-                //attribute라는 맵에 이름이 키가 있는 지 데이터가 .. 검사하게됨. 데이터 안까지는 검사하는 건 아님.
+        //attribute라는 맵에 이름이 키가 있는 지 데이터가 .. 검사하게됨. 데이터 안까지는 검사하는 건 아님.
 
     }
 
