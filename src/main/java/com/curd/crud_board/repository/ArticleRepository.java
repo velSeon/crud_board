@@ -2,6 +2,7 @@ package com.curd.crud_board.repository;
 
 import com.curd.crud_board.domain.Article;
 import com.curd.crud_board.domain.QArticle;
+import com.curd.crud_board.repository.querydsl.ArticleRepositoryCustom;
 import com.querydsl.core.types.dsl.DateTimeExpression;
 import com.querydsl.core.types.dsl.StringExpression;
 import org.springframework.data.domain.Page;
@@ -16,6 +17,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 @RepositoryRestResource
 public interface ArticleRepository extends
         JpaRepository<Article, Long>,
+        ArticleRepositoryCustom,
         QuerydslPredicateExecutor<Article>,
         QuerydslBinderCustomizer<QArticle> {
     //    QuerydslPredicateExecutor 엔티티에 있는 모든 필드에 대한 기본 검색 기능을 추가해줌
