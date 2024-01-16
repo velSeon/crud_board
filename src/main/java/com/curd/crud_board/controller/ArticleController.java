@@ -9,12 +9,15 @@ import com.curd.crud_board.dto.response.ArticleWithCommentResponse;
 import com.curd.crud_board.dto.security.BoardPrincipal;
 import com.curd.crud_board.service.ArticleService;
 import com.curd.crud_board.service.PaginationService;
+import com.curd.crud_board.service.ArticleService;
+import com.curd.crud_board.service.PaginationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -58,9 +61,11 @@ public class ArticleController {
     }
 
     @GetMapping("/search-hashtag")
-    public String searchArticleHashtage(@RequestParam(required = false) String searchValue,
-                                @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable,
-                                ModelMap map){
+    public String searchArticleHashtag(
+            @RequestParam(required = false) String searchValue,
+            @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable,
+            ModelMap map
+    ) {
         Page<ArticleResponse> articles = articleService.searchArticlesViaHashtag(searchValue, pageable).map(ArticleResponse::from);
         List<Integer> barNumbers = paginationService.getPaginationBarNumbers(pageable.getPageNumber(), articles.getTotalPages());
         List<String> hashtags = articleService.getHashtags();
@@ -74,36 +79,50 @@ public class ArticleController {
     }
 
     @GetMapping("/form")
+    public String articleForm(ModelMap map) {
+        map.addAttribute("formStatus", FormStatus.CREATE);
+
+        return "articles/form";
+    }
+
+    @PostMapping ("/form")
     public String postNewArticle(
             @AuthenticationPrincipal BoardPrincipal boardPrincipal,
-            ArticleRequest articleRequest){
+            ArticleRequest articleRequest
+    ) {
         articleService.saveArticle(articleRequest.toDto(boardPrincipal.toDto()));
+
         return "redirect:/articles";
     }
 
     @GetMapping("/{articleId}/form")
-    public String updateArticleForm(@PathVariable Long articleId, ModelMap map){
+    public String updateArticleForm(@PathVariable Long articleId, ModelMap map) {
         ArticleResponse article = ArticleResponse.from(articleService.getArticle(articleId));
+
         map.addAttribute("article", article);
         map.addAttribute("formStatus", FormStatus.UPDATE);
 
         return "articles/form";
     }
 
-    @PostMapping("/{articleId}/form")
-    public String updateArticle(@PathVariable Long articleId,
-                                @AuthenticationPrincipal BoardPrincipal boardPrincipal,
-                                ArticleRequest articleRequest){
-        //TODO: 인증정보 넣어줘야함
+    @PostMapping ("/{articleId}/form")
+    public String updateArticle(
+            @PathVariable Long articleId,
+            @AuthenticationPrincipal BoardPrincipal boardPrincipal,
+            ArticleRequest articleRequest
+    ) {
         articleService.updateArticle(articleId, articleRequest.toDto(boardPrincipal.toDto()));
+
         return "redirect:/articles/" + articleId;
     }
 
-    @PostMapping("/{articleId}/delete")
-    public String deleteArticle(@PathVariable Long articleId,
-                                @AuthenticationPrincipal BoardPrincipal boardPrincipal
-                                ){
+    @PostMapping ("/{articleId}/delete")
+    public String deleteArticle(
+            @PathVariable Long articleId,
+            @AuthenticationPrincipal BoardPrincipal boardPrincipal
+    ) {
         articleService.deleteArticle(articleId, boardPrincipal.getUsername());
+
         return "redirect:/articles";
     }
 

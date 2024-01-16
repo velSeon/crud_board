@@ -16,20 +16,18 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
-
-//@ActiveProfiles("testdb")
 @DisplayName("JPA 연결 테스트")
-@Import(JPARepositoryTest.TestJpaConfig.class)
+@Import(JpaRepositoryTest.TestJpaConfig.class)
 @DataJpaTest
-class JPARepositoryTest {
+class JpaRepositoryTest {
 
     private final ArticleRepository articleRepository;
     private final ArticleCommentRepository articleCommentRepository;
     private final UserAccountRepository userAccountRepository;
 
-    public JPARepositoryTest(
+    public JpaRepositoryTest(
             @Autowired ArticleRepository articleRepository,
             @Autowired ArticleCommentRepository articleCommentRepository,
             @Autowired UserAccountRepository userAccountRepository
@@ -38,8 +36,6 @@ class JPARepositoryTest {
         this.articleCommentRepository = articleCommentRepository;
         this.userAccountRepository = userAccountRepository;
     }
-
-
 
     @DisplayName("select 테스트")
     @Test
@@ -70,7 +66,6 @@ class JPARepositoryTest {
         assertThat(articleRepository.count()).isEqualTo(previousCount + 1);
     }
 
-
     @DisplayName("update 테스트")
     @Test
     void givenTestData_whenUpdating_thenWorksFine() {
@@ -85,7 +80,6 @@ class JPARepositoryTest {
         // Then
         assertThat(savedArticle).hasFieldOrPropertyWithValue("hashtag", updatedHashtag);
     }
-
 
     @DisplayName("delete 테스트")
     @Test
@@ -106,10 +100,11 @@ class JPARepositoryTest {
 
     @EnableJpaAuditing
     @TestConfiguration
-    public static class TestJpaConfig{
+    public static class TestJpaConfig {
         @Bean
-        public AuditorAware<String> auditorAware(){
+        public AuditorAware<String> auditorAware() {
             return () -> Optional.of("uno");
         }
     }
+
 }

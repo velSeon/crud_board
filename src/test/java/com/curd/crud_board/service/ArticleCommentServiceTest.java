@@ -75,7 +75,6 @@ class ArticleCommentServiceTest {
     void givenNonexistentArticle_whenSavingArticleComment_thenLogsSituationAndDoesNothing() {
         // Given
         ArticleCommentDto dto = createArticleCommentDto("댓글");
-
         given(articleRepository.getReferenceById(dto.articleId())).willThrow(EntityNotFoundException.class);
 
         // When
@@ -127,7 +126,6 @@ class ArticleCommentServiceTest {
         // Given
         Long articleCommentId = 1L;
         String userId = "uno";
-
         willDoNothing().given(articleCommentRepository).deleteByIdAndUserAccount_UserId(articleCommentId, userId);
 
         // When

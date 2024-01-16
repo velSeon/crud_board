@@ -11,18 +11,18 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.Optional;
 
-
 @EnableJpaAuditing
 @Configuration
 public class JpaConfig {
 
     @Bean
-    public AuditorAware<String> auditorAware(){
+    public AuditorAware<String> auditorAware() {
         return () -> Optional.ofNullable(SecurityContextHolder.getContext())
                 .map(SecurityContext::getAuthentication)
                 .filter(Authentication::isAuthenticated)
-                .map(Authentication::getAuthorities)
+                .map(Authentication::getPrincipal)
                 .map(BoardPrincipal.class::cast)
-                .map(BoardPrincipal::getUsername); //TODO: 스프링 시큐리티로 인증 기능을 붙이게 될 때, 수정해야함.
+                .map(BoardPrincipal::getUsername);
     }
+
 }

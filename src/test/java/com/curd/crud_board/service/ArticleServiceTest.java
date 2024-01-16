@@ -8,6 +8,7 @@ import com.curd.crud_board.dto.ArticleWithCommentsDto;
 import com.curd.crud_board.dto.UserAccountDto;
 import com.curd.crud_board.repository.ArticleRepository;
 import com.curd.crud_board.repository.UserAccountRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,7 +17,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.time.LocalDateTime;
@@ -51,7 +51,6 @@ class ArticleServiceTest {
         assertThat(articles).isEmpty();
         then(articleRepository).should().findAll(pageable);
     }
-
 
     @DisplayName("검색어와 함께 게시글을 검색하면, 게시글 페이지를 반환한다.")
     @Test
@@ -136,7 +135,6 @@ class ArticleServiceTest {
         then(articleRepository).should().findById(articleId);
     }
 
-
     @DisplayName("게시글을 조회하면, 게시글을 반환한다.")
     @Test
     void givenArticleId_whenSearchingArticle_thenReturnsArticle() {
@@ -156,7 +154,7 @@ class ArticleServiceTest {
         then(articleRepository).should().findById(articleId);
     }
 
-    @DisplayName("게시글을 없으면, 예외를 던진다.")
+    @DisplayName("게시글이 없으면, 예외를 던진다.")
     @Test
     void givenNonexistentArticleId_whenSearchingArticle_thenThrowsException() {
         // Given
@@ -198,8 +196,6 @@ class ArticleServiceTest {
         given(articleRepository.getReferenceById(dto.id())).willReturn(article);
         given(userAccountRepository.getReferenceById(dto.userAccountDto().userId())).willReturn(dto.userAccountDto().toEntity());
 
-
-
         // When
         sut.updateArticle(dto.id(), dto);
 
@@ -232,7 +228,6 @@ class ArticleServiceTest {
         // Given
         Long articleId = 1L;
         String userId = "uno";
-
         willDoNothing().given(articleRepository).deleteByIdAndUserAccount_UserId(articleId, userId);
 
         // When
@@ -241,7 +236,6 @@ class ArticleServiceTest {
         // Then
         then(articleRepository).should().deleteByIdAndUserAccount_UserId(articleId, userId);
     }
-
 
     @DisplayName("게시글 수를 조회하면, 게시글 수를 반환한다")
     @Test
@@ -272,6 +266,8 @@ class ArticleServiceTest {
         assertThat(actualHashtags).isEqualTo(expectedHashtags);
         then(articleRepository).should().findAllDistinctHashtags();
     }
+
+
     private UserAccount createUserAccount() {
         return UserAccount.of(
                 "uno",
@@ -283,7 +279,7 @@ class ArticleServiceTest {
     }
 
     private Article createArticle() {
-        Article article= Article.of(
+        Article article = Article.of(
                 createUserAccount(),
                 "title",
                 "content",
@@ -299,7 +295,8 @@ class ArticleServiceTest {
     }
 
     private ArticleDto createArticleDto(String title, String content, String hashtag) {
-        return ArticleDto.of(1L,
+        return ArticleDto.of(
+                1L,
                 createUserAccountDto(),
                 title,
                 content,

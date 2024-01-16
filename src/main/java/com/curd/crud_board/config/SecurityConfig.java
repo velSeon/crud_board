@@ -3,7 +3,6 @@ package com.curd.crud_board.config;
 import com.curd.crud_board.dto.UserAccountDto;
 import com.curd.crud_board.dto.security.BoardPrincipal;
 import com.curd.crud_board.repository.UserAccountRepository;
-
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +20,6 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
         http.authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 PathRequest.toStaticResources().atCommonLocations()).permitAll()
@@ -36,8 +34,6 @@ public class SecurityConfig {
                 .logout(logout -> logout
                         .logoutSuccessUrl("/").permitAll());
         return http.build();
-
-
     }
 
     @Bean

@@ -46,6 +46,7 @@ class ArticleCommentControllerTest {
         this.formDataEncoder = formDataEncoder;
     }
 
+
     @WithUserDetails(value = "unoTest", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     @DisplayName("[view][POST] 댓글 등록 - 정상 호출")
     @Test

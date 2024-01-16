@@ -17,16 +17,14 @@ public class TestSecurityConfig {
     @MockBean private UserAccountRepository userAccountRepository;
 
     @BeforeTestMethod
-    public void securitySetup(){
-        given(userAccountRepository.findById(anyString())).willReturn(Optional.of(
-                UserAccount.of(
-                        "unoTest",
-                        "pw",
-                        "uno-test@email.com",
-                        "uno-test",
-                        "test memo"
-                )));
-
+    public void securitySetUp() {
+        given(userAccountRepository.findById(anyString())).willReturn(Optional.of(UserAccount.of(
+                "unoTest",
+                "pw",
+                "uno-test@email.com",
+                "uno-test",
+                "test memo"
+        )));
     }
 
 }
