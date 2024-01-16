@@ -21,7 +21,7 @@ class MaincontrollerTest {
 
     private final MockMvc mvc;
 
-    public MaincontrollerTest(@Autowired MockMvc mvc) {
+    MaincontrollerTest(@Autowired MockMvc mvc) {
         this.mvc = mvc;
     }
 
