@@ -1,4 +1,4 @@
-package com.curd.crud_board.domain.type;
+package com.curd.crud_board.domain.constant;
 
 import lombok.Getter;
 
