@@ -5,7 +5,7 @@ import com.curd.crud_board.domain.constant.SearchType;
 import com.curd.crud_board.dto.UserAccountDto;
 import com.curd.crud_board.dto.request.ArticleRequest;
 import com.curd.crud_board.dto.response.ArticleResponse;
-import com.curd.crud_board.dto.response.ArticleWithCommentResponse;
+import com.curd.crud_board.dto.response.ArticleWithCommentsResponse;
 import com.curd.crud_board.dto.security.BoardPrincipal;
 import com.curd.crud_board.service.ArticleService;
 import com.curd.crud_board.service.PaginationService;
@@ -52,9 +52,9 @@ public class ArticleController {
     @GetMapping("/{articleId}")
     public String article(@PathVariable Long articleId, ModelMap map) {
 
-        ArticleWithCommentResponse article = ArticleWithCommentResponse.from(articleService.getArticleWithComments(articleId));
+        ArticleWithCommentsResponse article = ArticleWithCommentsResponse.from(articleService.getArticleWithComments(articleId));
         map.addAttribute("article", article);
-        map.addAttribute("articleComments", article.articleCommentResponses());
+        map.addAttribute("articleComments", article.articleCommentsResponse());
         map.addAttribute("totalCount", articleService.getArticleCount());
 
         return "articles/detail";
