@@ -5,7 +5,7 @@ import com.curd.crud_board.domain.constant.SearchType;
 import com.curd.crud_board.dto.UserAccountDto;
 import com.curd.crud_board.dto.request.ArticleRequest;
 import com.curd.crud_board.dto.response.ArticleResponse;
-import com.curd.crud_board.dto.response.ArticleWithCommentResponse;
+import com.curd.crud_board.dto.response.ArticleWithCommentsResponse;
 import com.curd.crud_board.dto.security.BoardPrincipal;
 import com.curd.crud_board.service.ArticleService;
 import com.curd.crud_board.service.PaginationService;
@@ -45,17 +45,19 @@ public class ArticleController {
         map.addAttribute("articles", articles);
         map.addAttribute("paginationBarNumbers", barNumbers);
         map.addAttribute("searchTypes", SearchType.values());
+        map.addAttribute("searchTypeHashtag", SearchType.HASHTAG);
 
         return "articles/index";
     }
 
     @GetMapping("/{articleId}")
     public String article(@PathVariable Long articleId, ModelMap map) {
+        ArticleWithCommentsResponse article = ArticleWithCommentsResponse.from(articleService.getArticleWithComments(articleId));
 
-        ArticleWithCommentResponse article = ArticleWithCommentResponse.from(articleService.getArticleWithComments(articleId));
         map.addAttribute("article", article);
-        map.addAttribute("articleComments", article.articleCommentResponses());
+        map.addAttribute("articleComments", article.articleCommentsResponse());
         map.addAttribute("totalCount", articleService.getArticleCount());
+        map.addAttribute("searchTypeHashtag", SearchType.HASHTAG);
 
         return "articles/detail";
     }
@@ -85,7 +87,7 @@ public class ArticleController {
         return "articles/form";
     }
 
-    @PostMapping ("/form")
+    @PostMapping("/form")
     public String postNewArticle(
             @AuthenticationPrincipal BoardPrincipal boardPrincipal,
             ArticleRequest articleRequest
@@ -105,7 +107,7 @@ public class ArticleController {
         return "articles/form";
     }
 
-    @PostMapping ("/{articleId}/form")
+    @PostMapping("/{articleId}/form")
     public String updateArticle(
             @PathVariable Long articleId,
             @AuthenticationPrincipal BoardPrincipal boardPrincipal,
@@ -116,7 +118,7 @@ public class ArticleController {
         return "redirect:/articles/" + articleId;
     }
 
-    @PostMapping ("/{articleId}/delete")
+    @PostMapping("/{articleId}/delete")
     public String deleteArticle(
             @PathVariable Long articleId,
             @AuthenticationPrincipal BoardPrincipal boardPrincipal
