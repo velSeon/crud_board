@@ -305,7 +305,7 @@ class ArticleServiceTest {
     void givenArticleId_whenDeletingArticle_thenDeletesArticle() {
         // Given
         Long articleId = 1L;
-        String userId = "uno";
+        String userId = "insoen";
         given(articleRepository.getReferenceById(articleId)).willReturn(createArticle());
         willDoNothing().given(articleRepository).deleteByIdAndUserAccount_UserId(articleId, userId);
         willDoNothing().given(articleRepository).flush();
@@ -353,15 +353,15 @@ class ArticleServiceTest {
     }
 
     private UserAccount createUserAccount() {
-        return createUserAccount("uno");
+        return createUserAccount("insoen");
     }
 
     private UserAccount createUserAccount(String userId) {
         return UserAccount.of(
                 userId,
                 "password",
-                "uno@email.com",
-                "Uno",
+                "insoen@email.com",
+                "insoen",
                 null
         );
     }
@@ -412,22 +412,22 @@ class ArticleServiceTest {
                 content,
                 null,
                 LocalDateTime.now(),
-                "Uno",
+                "insoen",
                 LocalDateTime.now(),
-                "Uno");
+                "insoen");
     }
 
     private UserAccountDto createUserAccountDto() {
         return UserAccountDto.of(
-                "uno",
+                "insoen",
                 "password",
-                "uno@mail.com",
-                "Uno",
+                "insoen@mail.com",
+                "insoen",
                 "This is memo",
                 LocalDateTime.now(),
-                "uno",
+                "insoen",
                 LocalDateTime.now(),
-                "uno"
+                "insoen"
         );
     }
 

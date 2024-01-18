@@ -27,10 +27,10 @@ public class TestSecurityConfig {
 
     private UserAccountDto createUserAccountDto() {
         return UserAccountDto.of(
-                "unoTest",
+                "insoenTest",
                 "pw",
-                "uno-test@email.com",
-                "uno-test",
+                "insoen-test@email.com",
+                "insoen-test",
                 "test memo"
         );
     }

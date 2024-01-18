@@ -63,7 +63,7 @@ class JpaRepositoryTest {
     void givenTestData_whenInserting_thenWorksFine() {
         // Given
         long previousCount = articleRepository.count();
-        UserAccount userAccount = userAccountRepository.save(UserAccount.of("newUno", "pw", null, null, null));
+        UserAccount userAccount = userAccountRepository.save(UserAccount.of("newinsoen", "pw", null, null, null));
         Article article = Article.of(userAccount, "new article", "new content");
         article.addHashtags(Set.of(Hashtag.of("spring")));
 
@@ -168,7 +168,7 @@ class JpaRepositoryTest {
         long previousArticleCommentCount = articleCommentRepository.count();
 
         // When
-        articleCommentRepository.deleteByIdAndUserAccount_UserId(1L, "uno");
+        articleCommentRepository.deleteByIdAndUserAccount_UserId(1L, "insoen");
 
         // Then
         assertThat(articleCommentRepository.count()).isEqualTo(previousArticleCommentCount - 5); // 테스트 댓글 + 대댓글 4개
@@ -215,7 +215,7 @@ class JpaRepositoryTest {
     static class TestJpaConfig {
         @Bean
         AuditorAware<String> auditorAware() {
-            return () -> Optional.of("uno");
+            return () -> Optional.of("insoen");
         }
     }
 
