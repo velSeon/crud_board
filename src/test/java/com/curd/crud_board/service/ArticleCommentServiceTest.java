@@ -127,7 +127,7 @@ class ArticleCommentServiceTest {
     void givenArticleCommentId_whenDeletingArticleComment_thenDeletesArticleComment() {
         // Given
         Long articleCommentId = 1L;
-        String userId = "uno";
+        String userId = "insoen";
         willDoNothing().given(articleCommentRepository).deleteByIdAndUserAccount_UserId(articleCommentId, userId);
 
         // When
@@ -154,23 +154,23 @@ class ArticleCommentServiceTest {
                 parentCommentId,
                 content,
                 LocalDateTime.now(),
-                "uno",
+                "insoen",
                 LocalDateTime.now(),
-                "uno"
+                "insoen"
         );
     }
 
     private UserAccountDto createUserAccountDto() {
         return UserAccountDto.of(
-                "uno",
+                "insoen",
                 "password",
-                "uno@mail.com",
-                "Uno",
+                "insoen@mail.com",
+                "insoen",
                 "This is memo",
                 LocalDateTime.now(),
-                "uno",
+                "insoen",
                 LocalDateTime.now(),
-                "uno"
+                "insoen"
         );
     }
 
@@ -187,10 +187,10 @@ class ArticleCommentServiceTest {
 
     private UserAccount createUserAccount() {
         return UserAccount.of(
-                "uno",
+                "insoen",
                 "password",
-                "uno@email.com",
-                "Uno",
+                "insoen@email.com",
+                "insoen",
                 null
         );
     }
