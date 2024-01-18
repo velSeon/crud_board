@@ -1,15 +1,14 @@
 # 게시판 서비스
----
 
 ## 개발 환경
----
+
 Intellij IDEA Ultimate 2022.3
 Java 17
 Gradle 7.4.1
 Spring Boot 3.2.1
 
 ## 기술 세부 스택
----
+
 Spring Boot
 Spring Boot Actuator
 Spring Web
@@ -30,7 +29,7 @@ Bootstrap 5.2.0-Beta1
 Heroku
 
 ## 데모 페이지
----
+
 준비 중
 
 ---
