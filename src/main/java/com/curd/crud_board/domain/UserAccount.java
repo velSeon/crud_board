@@ -1,11 +1,11 @@
 package com.curd.crud_board.domain;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-//import javax.persistence.*;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Getter

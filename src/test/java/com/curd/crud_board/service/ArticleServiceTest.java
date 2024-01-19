@@ -11,7 +11,7 @@ import com.curd.crud_board.dto.UserAccountDto;
 import com.curd.crud_board.repository.ArticleRepository;
 import com.curd.crud_board.repository.HashtagRepository;
 import com.curd.crud_board.repository.UserAccountRepository;
-import jakarta.persistence.EntityNotFoundException;
+import javax.persistence.*;
 import org.assertj.core.api.InstanceOfAssertFactories;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
