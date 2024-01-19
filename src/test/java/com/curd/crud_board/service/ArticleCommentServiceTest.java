@@ -10,7 +10,7 @@ import com.curd.crud_board.dto.ArticleDto;
 import com.curd.crud_board.repository.ArticleCommentRepository;
 import com.curd.crud_board.repository.ArticleRepository;
 import com.curd.crud_board.repository.UserAccountRepository;
-import jakarta.persistence.EntityNotFoundException;
+import javax.persistence.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

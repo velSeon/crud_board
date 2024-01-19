@@ -9,7 +9,7 @@ import com.curd.crud_board.dto.ArticleWithCommentsDto;
 import com.curd.crud_board.repository.ArticleRepository;
 import com.curd.crud_board.repository.HashtagRepository;
 import com.curd.crud_board.repository.UserAccountRepository;
-import jakarta.persistence.EntityNotFoundException;
+import javax.persistence.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;

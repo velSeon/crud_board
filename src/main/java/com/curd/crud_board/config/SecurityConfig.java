@@ -23,6 +23,8 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import java.util.UUID;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 @Configuration
 public class SecurityConfig {
 
@@ -31,30 +33,27 @@ public class SecurityConfig {
             HttpSecurity http,
             OAuth2UserService<OAuth2UserRequest, OAuth2User> oAuth2UserService
     ) throws Exception {
-        http.authorizeHttpRequests(auth -> auth
-                        .requestMatchers(
-                                PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                        .requestMatchers(
+        return http
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                        .mvcMatchers("/api/**").permitAll()
+                        .mvcMatchers(
                                 HttpMethod.GET,
                                 "/",
                                 "/articles",
                                 "/articles/search-hashtag"
-                        )
-                        .permitAll()
+                        ).permitAll()
                         .anyRequest().authenticated()
                 )
-                .formLogin(Customizer.withDefaults())
-                .logout(logout -> logout
-                        .logoutSuccessUrl("/"))
+                .formLogin(withDefaults())
                 .logout(logout -> logout.logoutSuccessUrl("/"))
                 .oauth2Login(oAuth -> oAuth
                         .userInfoEndpoint(userInfo -> userInfo
                                 .userService(oAuth2UserService)
                         )
-                );
-
-
-        return http.build();
+                )
+                .csrf(csrf -> csrf.ignoringAntMatchers("/api/**"))
+                .build();
     }
 
     @Bean

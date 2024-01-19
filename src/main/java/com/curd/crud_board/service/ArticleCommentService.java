@@ -7,7 +7,7 @@ import com.curd.crud_board.dto.ArticleCommentDto;
 import com.curd.crud_board.repository.ArticleCommentRepository;
 import com.curd.crud_board.repository.ArticleRepository;
 import com.curd.crud_board.repository.UserAccountRepository;
-import jakarta.persistence.EntityNotFoundException;
+import javax.persistence.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,5 @@
 package com.curd.crud_board.domain;
 
-import jakarta.persistence.*;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,6 +8,7 @@ import lombok.ToString;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
+import javax.persistence.*;
 
 @Getter
 @ToString(callSuper = true)
