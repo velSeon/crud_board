@@ -40,7 +40,7 @@ public class SecurityConfig {
                         .mvcMatchers(
                                 HttpMethod.GET,
                                 "/",
-                                "/articles",
+                                "/articles/*",
                                 "/articles/search-hashtag"
                         ).permitAll()
                         .anyRequest().authenticated()
